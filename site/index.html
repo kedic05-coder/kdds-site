@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K&D Detailing Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #0b0b0c;
+      color: #f4f4f4;
+      line-height: 1.6;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { text-decoration: none; }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 42px;
+      background: rgba(10, 10, 10, 0.72);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      z-index: 1000;
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: #d0d0d0;
+      font-size: 14px;
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a:hover { color: #ffffff; }
+
+    .hero {
+      min-height: 100vh;
+      padding: 120px 24px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 32%),
+        linear-gradient(180deg, #111214 0%, #090909 56%, #060606 100%);
+    }
+
+    .hero-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-logo {
+      width: min(520px, 80vw);
+      margin: 0 auto 24px;
+      filter: drop-shadow(0 16px 32px rgba(0,0,0,0.35));
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(30px, 4.5vw, 52px);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+    }
+
+    .hero p {
+      margin: 14px auto 0;
+      color: #ababab;
+      font-size: clamp(15px, 2vw, 18px);
+      max-width: 620px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid #ffffff;
+    }
+
+    .btn-secondary {
+      color: #f1f1f1;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 88px 24px;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #8f8f8f;
+      margin-bottom: 10px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+    }
+
+    .section-head p {
+      margin: 14px auto 0;
+      max-width: 720px;
+      color: #a2a2a2;
+    }
+
+    .video-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      background: #000;
+    }
+
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(34px);
+      transform: scale(1.25);
+      opacity: 0.45;
+    }
+
+    .video-wrap > video {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin: 0 0 16px;
+      color: #acacac;
+    }
+
+    .service-dropdown {
+      margin-top: 18px;
+    }
+
+    .service-dropdown summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #f0f0f0;
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .service-dropdown summary::-webkit-details-marker { display: none; }
+    .service-dropdown[open] summary { margin-bottom: 12px; }
+
+    .service-prices {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .service-price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 13px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      color: #d9d9d9;
+      font-size: 14px;
+    }
+
+    .comparison-blocks {
+      display: grid;
+      gap: 28px;
+    }
+
+    .before-after-wrap {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .comparison-card {
+      padding: 18px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.24);
+    }
+
+    .comparison-slider {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #101010;
+    }
+
+    .comparison-slider .image-before,
+    .comparison-slider .image-after {
+      position: absolute;
+      inset: 0;
+    }
+
+    .comparison-slider .image-before img,
+    .comparison-slider .image-after img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .comparison-slider .image-after {
+      width: 50%;
+      overflow: hidden;
+      animation: revealMove 5s ease-in-out infinite;
+    }
+
+    .slider-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 0 18px rgba(255,255,255,0.2);
+      animation: lineMove 5s ease-in-out infinite;
+    }
+
+    .slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.94);
+      color: #111;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.28);
+      animation: lineMove 5s ease-in-out infinite;
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(10,10,10,0.72);
+      color: #fff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-before { left: 16px; }
+    .badge-after { right: 16px; }
+
+    .results-copy h3 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .results-copy p {
+      margin: 0 0 18px;
+      color: #aaaaaa;
+    }
+
+    .results-points {
+      display: grid;
+      gap: 12px;
+    }
+
+    .results-points div {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #dadada;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-card, .info-card {
+      padding: 28px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #111214;
+      color: #f2f2f2;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input::placeholder, textarea::placeholder { color: #9a9a9a; }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    button {
+      padding: 15px 18px;
+      border-radius: 16px;
+      border: 0;
+      background: #ffffff;
+      color: #111;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .info-card h3 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0 24px;
+    }
+
+    .contact-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .map-wrap {
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 280px;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 0;
+    }
+
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1000;
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: rgba(17,17,18,0.92);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+    }
+
+    footer {
+      padding: 36px 24px 50px;
+      text-align: center;
+      color: #7f7f7f;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes revealMove {
+      0%, 100% { width: 22%; }
+      50% { width: 78%; }
+    }
+
+    @keyframes lineMove {
+      0%, 100% { left: 22%; }
+      50% { left: 78%; }
+    }
+
+    @media (max-width: 980px) {
+      .services-grid,
+      .before-after-wrap,
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        padding: 16px 18px;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a,
+      .brand {
+        font-size: 12px;
+      }
+
+      .section {
+        padding: 74px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand">K&D DETAILING</div>
+    <div class="nav-links">
+      <a href="#usluge">Usluge</a>
+      <a href="#video">Video</a>
+      <a href="#rezultati">Pre / Posle</a>
+      <a href="#zakazivanje">Zakazivanje</a>
+      <a href="#lokacija">Lokacija</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <img src="logo.png" alt="K&D logo" class="hero-logo">
+      <h1>Premium auto detailing u Novom Sadu.</h1>
+      <p>Poliranje, dubinsko pranje i detailing.</p>
+      <div class="hero-actions">
+        <a href="#zakazivanje" class="btn btn-primary">Zakaži termin</a>
+        <a href="#rezultati" class="btn btn-secondary">Pogledaj rezultate</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="video">
+    <div class="section-head">
+      <div class="section-kicker">Video</div>
+      <h2>Kako radimo</h2>
+      <p>Kratak prikaz procesa i kvaliteta rada.</p>
+    </div>
+    <div class="video-wrap">
+      <div class="video-bg">
+        <video autoplay muted loop playsinline>
+          <source src="video.mp4" type="video/mp4">
+        </video>
+      </div>
+      <video autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section class="section" id="usluge">
+    <div class="section-head">
+      <div class="section-kicker">Naše usluge</div>
+      <h2>Čist i ozbiljan pristup svakom autu</h2>
+      <p>Jasan prikaz usluga, premium izgled sajta i pregledne cene bez haosa.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="card">
+        <h3>Poliranje</h3>
+        <p>Jednoslojno, dvoslojno i troslojno poliranje za vraćanje dubine boje i ogledalo efekta.</p>
+        <details class="service-dropdown">
+          <summary>Pogledaj cenovnik poliranja</summary>
+          <div class="service-prices">
+            <div class="service-price-row"><span>Jednoslojno · mali auto</span><strong>80€</strong></div>
+            <div class="service-price-row"><span>Jednoslojno · srednji auto</span><strong>100€</strong></div>
+            <div class="service-price-row"><span>Jednoslojno · veliki auto</span><strong>130€</strong></div>
+            <div class="service-price-row"><span>Dvoslojno · mali auto</span><strong>100€</strong></div>
+            <div class="service-price-row"><span>Dvoslojno · srednji auto</span><strong>120€</strong></div>
+            <div class="service-price-row"><span>Dvoslojno · veliki auto</span><strong>150€</strong></div>
+            <div class="service-price-row"><span>Troslojno · mali auto</span><strong>130€</strong></div>
+            <div class="service-price-row"><span>Troslojno · srednji auto</span><strong>150€</strong></div>
+            <div class="service-price-row"><span>Troslojno · veliki auto</span><strong>190€</strong></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h3>Dubinsko pranje</h3>
+        <p>Dubinsko čišćenje sedišta, tepiha, patosnica, tapacirunga na vratima i neba.</p>
+        <details class="service-dropdown">
+          <summary>Pogledaj detalje usluge</summary>
+          <div class="service-prices">
+            <div class="service-price-row"><span>Dubinsko čišćenje vozila · mali auto</span><strong>40€</strong></div>
+            <div class="service-price-row"><span>Dubinsko čišćenje vozila · srednji auto</span><strong>50€</strong></div>
+            <div class="service-price-row"><span>Dubinsko čišćenje vozila · veliki auto</span><strong>60€</strong></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h3>Dubinsko + detailing</h3>
+        <p>Kompletan tretman enterijera i finalni detailing za maksimalno sređen izgled.</p>
+        <details class="service-dropdown">
+          <summary>Pogledaj detalje usluge</summary>
+          <div class="service-prices">
+            <div class="service-price-row"><span>Dubinsko pranje · uključenо</span><strong>Uključeno</strong></div>
+            <div class="service-price-row"><span>Dubinsko pranje · mali auto</span><strong>80€</strong></div>
+            <div class="service-price-row"><span>Dubinsko pranje · srednji auto</span><strong>100€</strong></div>
+            <div class="service-price-row"><span>Dubinsko pranje · veliki auto</span><strong>120€</strong></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rezultati">
+    <div class="section-head">
+      <div class="section-kicker">Rezultati</div>
+      <h2>Pre i posle tretmana</h2>
+      <p>Automatska animacija pokazuje razliku između stanja pre rada i finalnog rezultata.</p>
+    </div>
+
+    <div class="comparison-blocks">
+      <div class="before-after-wrap">
+        <div class="comparison-card">
+          <div class="comparison-slider">
+            <div class="image-before">
+              <img src="after.jpg" alt="Pre detailinga">
+            </div>
+            <div class="image-after">
+              <img src="before.jpg" alt="Posle detailinga">
+            </div>
+            <div class="badge badge-before">Pre</div>
+            <div class="badge badge-after">Posle</div>
+            <div class="slider-line"></div>
+            <div class="slider-handle">⇄</div>
+          </div>
+        </div>
+
+        <div class="results-copy">
+          <h3>Vidljiva razlika na prvi pogled</h3>
+          <p>Prikaz transformacije je odmah jasan i izgleda ozbiljnije od obične galerije slika.</p>
+          <div class="results-points">
+            <div>Jasan prikaz stanja laka i ukupnog izgleda vozila.</div>
+            <div>Automatska animacija privlači pažnju bez prenapadnog efekta.</div>
+            <div>Lako se menjaju slike kada uradiš nove automobile.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="before-after-wrap">
+        <div class="comparison-card">
+          <div class="comparison-slider">
+            <div class="image-before">
+              <img src="after2.jpg" alt="Pre detailinga 2">
+            </div>
+            <div class="image-after">
+              <img src="before2.jpg" alt="Posle detailinga 2">
+            </div>
+            <div class="badge badge-before">Pre</div>
+            <div class="badge badge-after">Posle</div>
+            <div class="slider-line"></div>
+            <div class="slider-handle">⇄</div>
+          </div>
+        </div>
+
+        <div class="results-copy">
+          <h3>Još jedan primer rezultata</h3>
+          <p>Drugi prikaz dodatno gradi poverenje jer pokazuje da nije u pitanju samo jedan auto ili jedan rad.</p>
+          <div class="results-points">
+            <div>Odlično za više vrsta vozila i različite tretmane.</div>
+            <div>Daje sajtu ozbiljniji i bogatiji utisak.</div>
+            <div>Idealno mesto za tvoje nove pre/posle radove.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="zakazivanje">
+    <div class="section-head">
+      <div class="section-kicker">Kontakt i zakazivanje</div>
+      <h2>Pošalji zahtev za termin</h2>
+      <p>Možeš ostaviti podatke kroz formu ili direktno pozvati na broj.</p>
+    </div>
+
+    <div class="booking-grid">
+      <div class="form-card">
+        <form action="https://formspree.io/f/meerbdwd" method="POST">
+          <input type="text" name="ime" placeholder="Ime i prezime" required>
+          <input type="tel" name="telefon" placeholder="Telefon" required>
+          <select name="usluga" required>
+            <option value="">Izaberi uslugu</option>
+            <option>Poliranje</option>
+            <option>Dubinsko pranje</option>
+            <option>Dubinsko + detailing</option>
+            <option>Polimerizacija farova</option>
+          </select>
+          <input type="date" name="datum" required>
+          <textarea name="poruka" placeholder="Poruka ili dodatne informacije"></textarea>
+          <button type="submit">Pošalji zahtev</button>
+        </form>
+      </div>
+
+      <div class="info-card" id="lokacija">
+        <h3>Kontakt informacije</h3>
+        <div class="contact-list">
+          <div class="contact-item"><strong>Aleksandar</strong><br>065 391 9519</div>
+          <div class="contact-item"><strong>Damir</strong><br>069 513 5005</div>
+          <div class="contact-item"><strong>Adresa</strong><br>Dragomira Bojanica Gidre 11</div>
+        </div>
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps?q=Dragomira%20Bojanica%20Gidre%2011&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a class="whatsapp" href="https://wa.me/381653919519">WhatsApp</a>
+
+    <section class="section" id="drustvene">
+    <div class="section-head">
+      <div class="section-kicker">Društvene mreže</div>
+      <h2>Zapratite nas</h2>
+      <p>Pogledaj naše radove i svakodnevne objave na Instagramu.</p>
+    </div>
+
+    <div style="display:flex; justify-content:center; align-items:center; gap:12px;">
+      <a href="https://instagram.com/kdds.ns" target="_blank" style="display:flex; align-items:center; gap:10px; padding:14px 20px; border-radius:16px; background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045); border:none; color:#fff; font-weight:600; transition:transform 0.2s ease, box-shadow 0.2s ease; box-shadow:0 8px 20px rgba(0,0,0,0.3);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 25px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.3)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.5 5.5 0 0 0 12 7.5zm0 9A3.5 3.5 0 1 1 15.5 13 3.5 3.5 0 0 1 12 16.5zM18 6.3a1.3 1.3 0 1 0 1.3 1.3A1.3 1.3 0 0 0 18 6.3z"/>
+        </svg>
+        kdds.ns
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    © K&D Detailing Studio · Novi Sad
+  </footer>
+
+</body>
+</html>
