@@ -7,7 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
@@ -15,6 +17,7 @@
       color: #f4f4f4;
       line-height: 1.6;
     }
+
     img, video { display: block; max-width: 100%; }
     a { text-decoration: none; }
 
@@ -93,7 +96,7 @@
       margin: 14px auto 0;
       color: #ababab;
       font-size: clamp(15px, 2vw, 18px);
-      max-width: 620px;
+      max-width: 720px;
     }
 
     .hero-actions {
@@ -102,6 +105,23 @@
       gap: 14px;
       flex-wrap: wrap;
       margin-top: 30px;
+    }
+
+    .hero-proof {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: #9f9f9f;
+      font-size: 14px;
+    }
+
+    .hero-proof span {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
     }
 
     .btn {
@@ -130,9 +150,9 @@
     .btn:hover { transform: translateY(-2px); }
 
     .section {
-      max-width: 1180px;
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 88px 24px;
+      padding: 100px 24px;
     }
 
     .section-head {
@@ -199,16 +219,27 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+      align-items: stretch;
     }
 
     .card {
-      padding: 28px;
+      padding: 32px;
       border-radius: 24px;
       background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border-color: rgba(255,255,255,0.14);
     }
 
     .card h3 {
@@ -223,7 +254,7 @@
     }
 
     .service-dropdown {
-      margin-top: 18px;
+      margin-top: auto;
     }
 
     .service-dropdown summary {
@@ -237,6 +268,12 @@
       font-size: 14px;
       font-weight: 600;
       width: 100%;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .service-dropdown summary:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.13);
     }
 
     .service-dropdown summary::-webkit-details-marker { display: none; }
@@ -277,6 +314,12 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow: 0 14px 34px rgba(0,0,0,0.24);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .comparison-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
 
     .comparison-slider {
@@ -405,7 +448,6 @@
     }
 
     input::placeholder, textarea::placeholder { color: #9a9a9a; }
-
     textarea { min-height: 120px; resize: vertical; }
 
     button {
@@ -418,6 +460,19 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.24);
+    }
+
+    .booking-note {
+      color: #ff5a5a;
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: -2px;
     }
 
     .info-card h3 {
@@ -463,6 +518,7 @@
       color: #ffffff;
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+      animation: pulse 2s infinite;
     }
 
     footer {
@@ -470,6 +526,94 @@
       text-align: center;
       color: #7f7f7f;
       border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .multi-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .multi-select-button {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #111214;
+      color: #f2f2f2;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .multi-select-button span {
+      pointer-events: none;
+    }
+
+    .multi-select-button .placeholder {
+      color: #9a9a9a;
+    }
+
+    .multi-select-arrow {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+
+    .multi-select.open .multi-select-arrow {
+      transform: rotate(180deg);
+    }
+
+    .multi-select-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 100%;
+      background: #111214;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 8px;
+      display: none;
+      z-index: 100;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+    }
+
+    .multi-select.open .multi-select-dropdown {
+      display: grid;
+      gap: 6px;
+    }
+
+    .multi-select-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #f2f2f2;
+      transition: background 0.2s ease;
+    }
+
+    .multi-select-option:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .multi-select-option input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: #ffffff;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .multi-select-hidden {
+      display: none;
     }
 
     @keyframes fadeUp {
@@ -487,8 +631,19 @@
       50% { left: 78%; }
     }
 
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 1200px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media (max-width: 980px) {
-      .services-grid,
       .before-after-wrap,
       .booking-grid {
         grid-template-columns: 1fr;
@@ -513,6 +668,15 @@
       .section {
         padding: 74px 18px;
       }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-proof {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -533,10 +697,17 @@
     <div class="hero-inner">
       <img src="logo.png" alt="K&D logo" class="hero-logo">
       <h1>Premium auto detailing u Novom Sadu.</h1>
-      <p>Poliranje, dubinsko pranje i detailing.</p>
+      <p>Vraćamo autu fabrički sjaj i izgled kao nov — brzo, precizno i bez kompromisa.</p>
+
       <div class="hero-actions">
         <a href="#zakazivanje" class="btn btn-primary">Zakaži termin</a>
         <a href="#rezultati" class="btn btn-secondary">Pogledaj rezultate</a>
+      </div>
+
+      <div class="hero-proof">
+        <span>✔️ 100+ zadovoljnih klijenata</span>
+        <span>✔️ Novi Sad i okolina</span>
+        <span>✔️ Profesionalna oprema i hemija</span>
       </div>
     </div>
   </header>
@@ -605,10 +776,21 @@
         <details class="service-dropdown">
           <summary>Pogledaj detalje usluge</summary>
           <div class="service-prices">
-            <div class="service-price-row"><span>Dubinsko pranje · uključenо</span><strong>Uključeno</strong></div>
+            <div class="service-price-row"><span>Dubinsko pranje · uključeno</span><strong>Uključeno</strong></div>
             <div class="service-price-row"><span>Dubinsko pranje · mali auto</span><strong>80€</strong></div>
             <div class="service-price-row"><span>Dubinsko pranje · srednji auto</span><strong>100€</strong></div>
             <div class="service-price-row"><span>Dubinsko pranje · veliki auto</span><strong>120€</strong></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="card">
+        <h3>Polimerizacija farova</h3>
+        <p>Vraćanje sjaja i preglednosti farovima uz estetski lepši i čistiji završni izgled.</p>
+        <details class="service-dropdown">
+          <summary>Pogledaj detalje usluge</summary>
+          <div class="service-prices">
+            <div class="service-price-row"><span>Polimerizacija farova</span><strong>30€</strong></div>
           </div>
         </details>
       </div>
@@ -676,6 +858,33 @@
           </div>
         </div>
       </div>
+
+      <div class="before-after-wrap">
+        <div class="comparison-card">
+          <div class="comparison-slider">
+            <div class="image-before">
+              <img src="far-posle.jpg" alt="Far posle polimerizacije">
+            </div>
+            <div class="image-after">
+              <img src="far-pre.jpg" alt="Far pre polimerizacije">
+            </div>
+            <div class="badge badge-before">Pre</div>
+            <div class="badge badge-after">Posle</div>
+            <div class="slider-line"></div>
+            <div class="slider-handle">⇄</div>
+          </div>
+        </div>
+
+        <div class="results-copy">
+          <h3>Polimerizacija farova</h3>
+          <p>Vraćanje providnosti farovima i znatno bolja vidljivost u vožnji.</p>
+          <div class="results-points">
+            <div>Uklanjanje žutila i zamućenja sa farova.</div>
+            <div>Vidno jače i jasnije svetlo tokom noćne vožnje.</div>
+            <div>Dugotrajan zaštitni sloj i lep završni izgled.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -688,18 +897,44 @@
 
     <div class="booking-grid">
       <div class="form-card">
-        <form action="https://formspree.io/f/meerbdwd" method="POST">
+        <form action="https://formspree.io/f/meerbdwd" method="POST" id="bookingForm">
           <input type="text" name="ime" placeholder="Ime i prezime" required>
           <input type="tel" name="telefon" placeholder="Telefon" required>
-          <select name="usluga" required>
-            <option value="">Izaberi uslugu</option>
-            <option>Poliranje</option>
-            <option>Dubinsko pranje</option>
-            <option>Dubinsko + detailing</option>
-            <option>Polimerizacija farova</option>
-          </select>
+
+          <div class="multi-select" id="multiSelect">
+            <button type="button" class="multi-select-button" id="multiSelectButton">
+              <span id="multiSelectText" class="placeholder">Izaberi uslugu</span>
+              <span class="multi-select-arrow">⌄</span>
+            </button>
+
+            <div class="multi-select-dropdown">
+              <label class="multi-select-option">
+                <input type="checkbox" value="Poliranje">
+                <span>Poliranje</span>
+              </label>
+
+              <label class="multi-select-option">
+                <input type="checkbox" value="Dubinsko pranje">
+                <span>Dubinsko pranje</span>
+              </label>
+
+              <label class="multi-select-option">
+                <input type="checkbox" value="Dubinsko + detailing">
+                <span>Dubinsko + detailing</span>
+              </label>
+
+              <label class="multi-select-option">
+                <input type="checkbox" value="Polimerizacija farova">
+                <span>Polimerizacija farova</span>
+              </label>
+            </div>
+
+            <input type="hidden" name="usluga" id="selectedServicesInput" class="multi-select-hidden" required>
+          </div>
+
           <input type="date" name="datum" required>
           <textarea name="poruka" placeholder="Poruka ili dodatne informacije"></textarea>
+          <div class="booking-note">⚠️ Termini se brzo popunjavaju</div>
           <button type="submit">Pošalji zahtev</button>
         </form>
       </div>
@@ -723,9 +958,9 @@
     </div>
   </section>
 
-  <a class="whatsapp" href="https://wa.me/381653919519">WhatsApp</a>
+  <a class="whatsapp" href="https://wa.me/381653919519">💬 Piši na WhatsApp</a>
 
-    <section class="section" id="drustvene">
+  <section class="section" id="drustvene">
     <div class="section-head">
       <div class="section-kicker">Društvene mreže</div>
       <h2>Zapratite nas</h2>
@@ -745,6 +980,55 @@
   <footer>
     © K&D Detailing Studio · Novi Sad
   </footer>
+
+  <script>
+    const multiSelect = document.getElementById('multiSelect');
+    const multiSelectButton = document.getElementById('multiSelectButton');
+    const multiSelectText = document.getElementById('multiSelectText');
+    const selectedServicesInput = document.getElementById('selectedServicesInput');
+    const bookingForm = document.getElementById('bookingForm');
+    const checkboxes = multiSelect.querySelectorAll('input[type="checkbox"]');
+
+    function updateSelectedServices() {
+      const selected = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+
+      if (selected.length === 0) {
+        multiSelectText.textContent = 'Izaberi uslugu';
+        multiSelectText.classList.add('placeholder');
+        selectedServicesInput.value = '';
+      } else {
+        multiSelectText.textContent = selected.join(', ');
+        multiSelectText.classList.remove('placeholder');
+        selectedServicesInput.value = selected.join(', ');
+      }
+    }
+
+    multiSelectButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      multiSelect.classList.toggle('open');
+    });
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', updateSelectedServices);
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!multiSelect.contains(e.target)) {
+        multiSelect.classList.remove('open');
+      }
+    });
+
+    bookingForm.addEventListener('submit', function(e) {
+      const hasSelected = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+      if (!hasSelected) {
+        e.preventDefault();
+        alert('Izaberi bar jednu uslugu.');
+      }
+    });
+  </script>
 
 </body>
 </html>
